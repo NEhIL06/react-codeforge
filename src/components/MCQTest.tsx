@@ -3,6 +3,7 @@ import { Check, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { toast } from "sonner";
+import { useMouseTracker } from "@/hooks/useMouseTracker";
 
 interface Question {
   id: number;
@@ -30,6 +31,7 @@ export const MCQTest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [score, setScore] = useState(0);
+  const coordinates = useMouseTracker();
 
   const handleSubmit = () => {
     if (selectedAnswer === null) {
@@ -56,9 +58,14 @@ export const MCQTest = () => {
     <div className="w-full max-w-2xl mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">MCQ Test</h2>
-        <span className="text-sm font-medium">
-          Question {currentQuestion + 1} of {sampleQuestions.length}
-        </span>
+        <div className="flex flex-col items-end space-y-1">
+          <span className="text-sm font-medium">
+            Question {currentQuestion + 1} of {sampleQuestions.length}
+          </span>
+          <span className="text-xs text-gray-500">
+            Mouse: ({coordinates.x}, {coordinates.y})
+          </span>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">

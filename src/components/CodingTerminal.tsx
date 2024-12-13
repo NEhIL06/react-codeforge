@@ -4,10 +4,12 @@ import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 import { Terminal, Play } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { useMouseTracker } from "@/hooks/useMouseTracker";
 
 export const CodingTerminal = () => {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
+  const coordinates = useMouseTracker();
 
   // Sample question data - in a real app, this would come from an API
   const sampleQuestion = {
@@ -45,6 +47,9 @@ You can return the answer in any order.`,
               <CardTitle className="text-xl font-bold">{sampleQuestion.title}</CardTitle>
               <span className="text-sm text-green-600 font-medium">{sampleQuestion.difficulty}</span>
             </div>
+            <span className="text-xs text-gray-500">
+              Mouse: ({coordinates.x}, {coordinates.y})
+            </span>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
